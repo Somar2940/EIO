@@ -6,10 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <View
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="#18AB22"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
+        android:id="@+id/headertext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="@string/header"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/header" />
+
+    <Button
+        android:id="@+id/camera_button"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:text="@string/camera_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.22"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.120000005" />
+
+    <Button
+        android:id="@+id/mailsend_button"
+        android:layout_width="110sp"
+        android:layout_height="wrap_content"
+        android:text="@string/mailsend_button_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.12000000" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:scaleType="fitCenter"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:contentDescription="@string/description"
+        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
