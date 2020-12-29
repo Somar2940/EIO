@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,13 +13,12 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import androidx.core.content.FileProvider;
-
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends Activity {
     private final static int RESULT_CAMERA = 1001;
@@ -39,13 +37,22 @@ public class MainActivity extends Activity {
 
         Button cameraButton = findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(onClick_button_camera);
+
     }
     private View.OnClickListener onClick_button_mail = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            //カメラを使ったか否か
             if(cameraUri != null && isExternalStorageReadable()) {
                 Intent intent = new Intent(getApplication(), MailSend.class);
                 startActivity(intent);
+            }else{
+                //ダイアログを表示
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("カメラ起動し撮影してください")
+                        .setTitle("System Message")
+                        .setPositiveButton("OK",null);
+                builder.show();
             }
         }
     };
@@ -97,13 +104,11 @@ public class MainActivity extends Activity {
         }
     }
 
-    /* Checks if external storage is available for read and write */
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return (Environment.MEDIA_MOUNTED.equals(state));
     }
 
-    /* Checks if external storage is available to at least read */
     public boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return (Environment.MEDIA_MOUNTED.equals(state) ||
