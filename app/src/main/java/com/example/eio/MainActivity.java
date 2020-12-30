@@ -33,6 +33,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fnm = (FileNameString) this.getApplication();
+
         preference = getSharedPreferences("Preference Name", MODE_PRIVATE);
         editor = preference.edit();
         if (preference.getBoolean("Launched", false)==false) {
@@ -46,8 +48,6 @@ public class MainActivity extends Activity {
             editor.putBoolean("Launched", true);
             editor.commit();
         }
-
-        fnm = (FileNameString) this.getApplication();
 
         imageView = findViewById(R.id.image_view);
 
