@@ -3,7 +3,7 @@ package com.example.eio;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +21,8 @@ import java.util.Locale;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends Activity {
+    private SharedPreferences preference;
+    private SharedPreferences.Editor editor;
     private final static int RESULT_CAMERA = 1001;
     private ImageView imageView;
     private Uri cameraUri;
@@ -30,6 +32,20 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preference = getSharedPreferences("Preference Name", MODE_PRIVATE);
+        editor = preference.edit();
+        if (preference.getBoolean("Launched", false)==false) {
+            //初回起動時の処理
+            AlertDialog.Builder firstbuilder = new AlertDialog.Builder(MainActivity.this);
+            firstbuilder.setMessage("アカウント設定からGmailの\n情報を更新してご利用ください")
+                    .setTitle("System Message (初回起動時のみ)")
+                    .setPositiveButton("OK",null);
+            firstbuilder.show();
+            //プリファレンスの書き変え
+            editor.putBoolean("Launched", true);
+            editor.commit();
+        }
 
         fnm = (FileNameString) this.getApplication();
 

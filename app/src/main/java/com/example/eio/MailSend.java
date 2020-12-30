@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -31,7 +30,7 @@ public class MailSend extends Activity {
                 String save_account_name = fnm.getAccountname();
                 String save_account_pass = fnm.getAccountpass();
                 asyncTask a = new asyncTask();
-                a.execute(save_account_name, save_account_pass, "テストタイトル", "送信完了\n本文をここに記述する");
+                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", "送信完了\n本文をここに記述する");
             }
         });
     }
@@ -74,7 +73,7 @@ public class MailSend extends Activity {
                 // 添付ファイルをする場合はこれを使う
                 final MimeBodyPart filePart = new MimeBodyPart();
                 String filetime = fnm.getfiletime();
-                String pathname = "/storage/sdcard/Android/data/com.example.eio/files/DCIM/CameraIntent_"+filetime+".jpg";
+                String pathname = "/sdcard/Android/data/com.example.eio/files/DCIM/CameraIntent_"+filetime+".jpg";
                 File file = new File(pathname);
                 FileDataSource fds = new FileDataSource(file);
                 DataHandler data = new DataHandler(fds);
