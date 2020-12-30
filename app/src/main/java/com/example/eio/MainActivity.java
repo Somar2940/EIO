@@ -81,7 +81,16 @@ public class MainActivity extends Activity {
     private View.OnClickListener onClick_button_camera = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(isExternalStorageWritable()){
+            String accountname = fnm.getAccountname();
+            String accountpass = fnm.getAccountpass();
+            if ((accountname == "x") || (accountpass=="x")){
+                //ダイアログを表示
+                AlertDialog.Builder builder3 = new AlertDialog.Builder(MainActivity.this);
+                builder3.setMessage("アカウント情報を設定してください")
+                        .setTitle("System Message")
+                        .setPositiveButton("OK",null);
+                builder3.show();
+            }else if(isExternalStorageWritable()){
                 cameraIntent();
             }
         }

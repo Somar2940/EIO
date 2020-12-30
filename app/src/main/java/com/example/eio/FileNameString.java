@@ -5,8 +5,8 @@ import android.app.Application;
 public class FileNameString extends Application {
 
     private static String filetime = "default";
-    private static String accountname = "default";
-    private static String accountpass = "default";
+    private static String accountname = "x";
+    private static String accountpass = "x";
 
     @Override
     public void onCreate() {
