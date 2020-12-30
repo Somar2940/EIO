@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
@@ -22,6 +23,8 @@ public class MailSend extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailsend);
+
+        final EditText editTextmailsentence = findViewById(R.id.editTextmailsentence);
         fnm = (FileNameString) this.getApplication();
         Button button = findViewById(R.id.mailsend_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -30,7 +33,8 @@ public class MailSend extends Activity {
                 String save_account_name = fnm.getAccountname();
                 String save_account_pass = fnm.getAccountpass();
                 asyncTask a = new asyncTask();
-                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", "送信完了\n本文をここに記述する");
+                String mail_sentence_text = editTextmailsentence.getText().toString();
+                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", mail_sentence_text);
             }
         });
     }
