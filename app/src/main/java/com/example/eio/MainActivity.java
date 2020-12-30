@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
         Button cameraButton = findViewById(R.id.camera_button);
         cameraButton.setOnClickListener(onClick_button_camera);
 
+        Button account_button = findViewById(R.id.account_button);
+        account_button.setOnClickListener(onClick_button_account);
+
     }
     private View.OnClickListener onClick_button_mail = new View.OnClickListener() {
         @Override
@@ -67,12 +70,19 @@ public class MainActivity extends Activity {
             }
         }
     };
-    private void cameraIntent(){
+    private View.OnClickListener onClick_button_account = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent accountintent = new Intent(getApplication(), account.class);
+            startActivity(accountintent);
+        }
+    };
+    private void cameraIntent() {
         Context context = getApplicationContext();
         // 保存先のフォルダー
         //pass:storage/sdcard/data/com.example.eio/files/DCIM/CameraIntent_xxxxxxxx.jpg
         File cFolder = context.getExternalFilesDir(Environment.DIRECTORY_DCIM);
-        Log.d("log","path: " + String.valueOf(cFolder));
+        Log.d("log", "path: " + String.valueOf(cFolder));
 
         String fileDate = new SimpleDateFormat(
                 "ddHHmmss", Locale.JAPAN).format(new Date());
