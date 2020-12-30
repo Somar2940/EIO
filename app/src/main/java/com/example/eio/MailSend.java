@@ -28,8 +28,10 @@ public class MailSend extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String save_account_name = fnm.getAccountname();
+                String save_account_pass = fnm.getAccountpass();
                 asyncTask a = new asyncTask();
-                a.execute("sota2940", "2940Fukush1ma", "テストタイトル", "送信完了\n本文をここに記述する");
+                a.execute(save_account_name, save_account_pass, "テストタイトル", "送信完了\n本文をここに記述する");
             }
         });
     }

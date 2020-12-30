@@ -5,4 +5,9 @@
     <string name="mailsend_button_text">送信文を書く</string>
     <string name="description">camera picture</string>
     <string name="setting_account">アカウント設定</string>
+    <string name="account">アカウント名</string>
+    <string name="Password">パスワード</string>
+    <string name="secure_account_page">Googleアカウントの\nセキュリティ設定ページ</string>
+    <string name="gmail.com">＠gmail.com</string>
+    <string name="account_set">アカウント情報を保存</string>
 </resources>
