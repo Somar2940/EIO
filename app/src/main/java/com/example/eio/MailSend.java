@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import android.view.View;
-import android.widget.EditText;
 
 import java.io.File;
 
@@ -24,10 +22,6 @@ public class MailSend extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailsend);
-
-        final EditText editText_mail_sentence = findViewById(R.id.editTextmailsentence);
-        final String mailsentence_text = editText_mail_sentence.getText().toString();
-
         fnm = (FileNameString) this.getApplication();
         Button button = findViewById(R.id.mailsend_button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -36,7 +30,7 @@ public class MailSend extends Activity {
                 String save_account_name = fnm.getAccountname();
                 String save_account_pass = fnm.getAccountpass();
                 asyncTask a = new asyncTask();
-                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", mailsentence_text);
+                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", "送信完了\n本文をここに記述する");
             }
         });
     }
@@ -77,6 +71,8 @@ public class MailSend extends Activity {
                 msg.setText(text);//テキストをセットする
 
                 // 添付ファイルをする場合はこれを使う
+                final MimeBodyPart txtPart = new MimeBodyPart();
+                txtPart.setText(text, "utf-8");
                 final MimeBodyPart filePart = new MimeBodyPart();
                 String filetime = fnm.getfiletime();
                 String pathname = "/sdcard/Android/data/com.example.eio/files/DCIM/CameraIntent_"+filetime+".jpg";
@@ -88,6 +84,7 @@ public class MailSend extends Activity {
 
 
                 final Multipart mp = new MimeMultipart();
+                mp.addBodyPart(txtPart);
                 mp.addBodyPart(filePart); //添付ファイルをする場合はこれ
                 msg.setContent(mp);
 
