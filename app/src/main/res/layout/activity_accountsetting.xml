@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="@+id/header" />
 
     <Button
-        android:id="@+id/button_setaccount"
+        android:id="@+id/button_urljump"
         android:layout_width="237dp"
         android:layout_height="62dp"
         android:layout_marginTop="40dp"
@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.16"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_setaccount"
+        app:layout_constraintTop_toBottomOf="@+id/button_urljump"
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
