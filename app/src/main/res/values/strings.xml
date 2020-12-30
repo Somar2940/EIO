@@ -10,4 +10,5 @@
     <string name="secure_account_page">Googleアカウントの\nセキュリティ設定ページ</string>
     <string name="gmail.com">＠gmail.com</string>
     <string name="account_set">アカウント情報を保存</string>
+    <string name="mailsentence">メール本文</string>
 </resources>
