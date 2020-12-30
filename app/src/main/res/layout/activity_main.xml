@@ -40,7 +40,7 @@
         app:layout_constraintVertical_bias="0.120000005" />
 
     <Button
-        android:id="@+id/mailsend_button"
+        android:id="@+id/intent_button"
         android:layout_width="110sp"
         android:layout_height="wrap_content"
         android:text="@string/mailsend_button_text"

@@ -24,15 +24,18 @@ public class MainActivity extends Activity {
     private final static int RESULT_CAMERA = 1001;
     private ImageView imageView;
     private Uri cameraUri;
+    private FileNameString fnm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        fnm = (FileNameString) this.getApplication();
+
         imageView = findViewById(R.id.image_view);
 
-        Button intent_button = findViewById(R.id.mailsend_button);
+        Button intent_button = findViewById(R.id.intent_button);
         intent_button.setOnClickListener(onClick_button_mail);
 
         Button cameraButton = findViewById(R.id.camera_button);
@@ -67,11 +70,16 @@ public class MainActivity extends Activity {
     private void cameraIntent(){
         Context context = getApplicationContext();
         // 保存先のフォルダー
+        //pass:storage/sdcard/data/com.example.eio/files/DCIM/CameraIntent_xxxxxxxx.jpg
         File cFolder = context.getExternalFilesDir(Environment.DIRECTORY_DCIM);
         Log.d("log","path: " + String.valueOf(cFolder));
 
         String fileDate = new SimpleDateFormat(
                 "ddHHmmss", Locale.JAPAN).format(new Date());
+
+        //FileNameStringのfiletimeにfileDateを代入
+        fnm.setfiletime(fileDate);
+
         // ファイル名
         String fileName = String.format("CameraIntent_%s.jpg", fileDate);
 
