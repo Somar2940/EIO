@@ -11,4 +11,5 @@
     <string name="gmail.com">＠gmail.com</string>
     <string name="account_set">アカウント情報を保存</string>
     <string name="mailsentence">メール本文</string>
+    <string name="tymailsend">ご協力ありがとうございました。\n\n画面をタップしてお戻りください。</string>
 </resources>

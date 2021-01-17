@@ -2,6 +2,7 @@ package com.example.eio;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,8 @@ public class MailSend extends Activity {
                 asyncTask a = new asyncTask();
                 String mail_sentence_text = editTextmailsentence.getText().toString();
                 a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", mail_sentence_text);
+                Intent intent = new Intent(getApplication(), TYScreen.class);
+                startActivity(intent);
             }
         });
     }
