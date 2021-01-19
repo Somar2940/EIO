@@ -21,7 +21,7 @@ import java.util.Locale;
 import static android.app.PendingIntent.getActivity;
 
 public class MainActivity extends Activity {
-    private SharedPreferences preference;
+    private SharedPreferences data;
     private SharedPreferences.Editor editor;
     private final static int RESULT_CAMERA = 1001;
     private ImageView imageView;
@@ -35,9 +35,10 @@ public class MainActivity extends Activity {
 
         fnm = (FileNameString) this.getApplication();
 
-        preference = getSharedPreferences("Preference Name", MODE_PRIVATE);
-        editor = preference.edit();
-        if (preference.getBoolean("Launched", false)==false) {
+        data = getSharedPreferences("Preference Name", MODE_PRIVATE);
+        editor = data.edit();
+
+        if (data.getBoolean("Launched", false)==false) {
             //初回起動時の処理
             AlertDialog.Builder firstbuilder = new AlertDialog.Builder(MainActivity.this);
             firstbuilder.setMessage("アカウント設定からGmailの\n情報を更新してご利用ください")
@@ -83,7 +84,7 @@ public class MainActivity extends Activity {
         public void onClick(View v) {
             String accountname = fnm.getAccountname();
             String accountpass = fnm.getAccountpass();
-            if ((accountname == "x") || (accountpass=="x")){
+            if ((data.getString("account", "x")=="x")&&(accountname=="x")){
                 //ダイアログを表示
                 AlertDialog.Builder builder3 = new AlertDialog.Builder(MainActivity.this);
                 builder3.setMessage("アカウント情報を設定してください")
@@ -91,6 +92,15 @@ public class MainActivity extends Activity {
                         .setPositiveButton("OK",null);
                 builder3.show();
             }else if(isExternalStorageWritable()){
+                if(data.getString("account", "x")=="x"){
+                    editor.putString("account", accountname);
+                    editor.putString("password", accountpass);
+                    editor.commit();
+                }else{
+                    String data_account = data.getString("account", "x");
+                    String data_password = data.getString("password", "x");
+                    fnm.setAccount(data_account,data_password);
+                }
                 cameraIntent();
             }
         }
@@ -98,6 +108,7 @@ public class MainActivity extends Activity {
     private View.OnClickListener onClick_button_account = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+
             Intent accountintent = new Intent(getApplication(), account.class);
             startActivity(accountintent);
         }
