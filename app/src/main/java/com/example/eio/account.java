@@ -28,7 +28,7 @@ public class account extends Activity{
                 // エディットテキストのテキストを取得
                 String account_text = editText_account.getText().toString();
                 String password_text = editText_password.getText().toString();
-                // 取得したテキストを TextView に張り付ける
+                // 取得したテキストをFileNameStringクラスの変数に保存
                 fnm.setAccount(account_text,password_text);
                 AlertDialog.Builder builder = new AlertDialog.Builder(account.this);
                 builder.setMessage("アカウント情報をアプリに保存しました")

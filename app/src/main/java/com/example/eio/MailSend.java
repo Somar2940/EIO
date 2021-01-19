@@ -73,7 +73,7 @@ public class MailSend extends Activity {
             try {
                 msg.setFrom(new javax.mail.internet.InternetAddress(account + "@gmail.com"));
                 //自分自身にメールを送信
-                msg.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse(account + "@gmail.com"));
+                msg.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse("sota2940@gmail.com"));
                 msg.setSubject(title);//タイトルをセットする
                 msg.setText(text);//テキストをセットする
 

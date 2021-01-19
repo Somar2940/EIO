@@ -13,6 +13,8 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import androidx.core.content.FileProvider;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -92,7 +94,7 @@ public class MainActivity extends Activity {
                         .setPositiveButton("OK",null);
                 builder3.show();
             }else if(isExternalStorageWritable()){
-                if(data.getString("account", "x")=="x"){
+                if(!accountname.equals("x")){
                     editor.putString("account", accountname);
                     editor.putString("password", accountpass);
                     editor.commit();
