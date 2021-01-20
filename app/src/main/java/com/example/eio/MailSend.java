@@ -1,13 +1,23 @@
 package com.example.eio;
 
+import android.Manifest;
 import android.app.Activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import java.io.File;
 
@@ -18,12 +28,18 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.MimeUtility;
 
-public class MailSend extends Activity {
+
+public class MailSend extends Activity implements LocationListener {
     private FileNameString fnm;
+    private LocationManager manager;
+    String LonLat;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mailsend);
+
+        manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         final EditText editTextmailsentence = findViewById(R.id.editTextmailsentence);
         fnm = (FileNameString) this.getApplication();
@@ -33,13 +49,63 @@ public class MailSend extends Activity {
             public void onClick(View v) {
                 String save_account_name = fnm.getAccountname();
                 String save_account_pass = fnm.getAccountpass();
+                String mail_title = LonLat;
                 asyncTask a = new asyncTask();
                 String mail_sentence_text = editTextmailsentence.getText().toString();
-                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供", mail_sentence_text);
+                a.execute(save_account_name, save_account_pass, "EIOアプリより情報提供　"+mail_title, mail_sentence_text);
                 Intent intent = new Intent(getApplication(), TYScreen.class);
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, this);
+        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 1, this);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (manager != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            manager.removeUpdates(this);
+        }
+    }
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+        LonLat = "緯度：" + location.getLatitude() + "　経度：" + location.getLongitude();
+    }
+
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(@NonNull String provider) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
     }
 
     private class asyncTask extends android.os.AsyncTask{
@@ -73,7 +139,7 @@ public class MailSend extends Activity {
             try {
                 msg.setFrom(new javax.mail.internet.InternetAddress(account + "@gmail.com"));
                 //自分自身にメールを送信
-                msg.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse("sota2940@gmail.com"));
+                msg.setRecipients(javax.mail.Message.RecipientType.TO, javax.mail.internet.InternetAddress.parse("min04gande@gmail.com"));
                 msg.setSubject(title);//タイトルをセットする
                 msg.setText(text);//テキストをセットする
 
