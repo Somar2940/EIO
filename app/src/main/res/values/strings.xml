@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EIO</string>
+    <string name="app_name">2020_3_EIO</string>
     <string name="header">NIT Kumamoto Campus</string>
     <string name="camera_button_text">写真を撮る</string>
     <string name="mailsend_button_text">送信文を書く</string>
